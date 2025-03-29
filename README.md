@@ -1,6 +1,8 @@
 # Laravel Separated User Auth(JWT) Example
 
-Laravel Separated User Auth is a multi-session authentication system based on JWT, designed for applications with distinct user roles (Admin, Company, User) stored in separate database tables or even different databases.
+### This is an example implementation of Separated User Auth using the [JWT package](https://github.com/jekk0/jwt-auth).
+
+It demonstrates a role-based authentication system where different user types (User, Admin, Company) are stored separately in the database. The implementation includes JWT-based authentication, token validation, and multi-session support
 
 ### 🔹 Features
 - Role-Based Authentication – Separate authentication flows for different user types.
