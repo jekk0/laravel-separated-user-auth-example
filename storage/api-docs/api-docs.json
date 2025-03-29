@@ -1,0 +1,294 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel Separated User Auth(JWT) Example",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/auth/admin/login": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Admin create token endpoint",
+                "operationId": "a52c9bec4607b01e5211340800643272",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "example": "admin@example.com"
+                                    },
+                                    "password": {
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "refresh": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "HTTP Unauthorized Exception",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/admin/refresh": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Admin refresh token endpoint",
+                "operationId": "b60b7cf15f135296e3205ade56209413",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "token": {}
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "refresh": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "HTTP Unauthorized Exception",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/admin/logout": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Invalidate access/refresh token pair for current session",
+                "operationId": "36037d9b01d8a00e8d45c06f67295bb3",
+                "responses": {
+                    "200": {
+                        "description": "Empty response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "HTTP Unauthorized Exception",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/admin/logout/all": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Invalidate access/refresh token pairs for all user sessions",
+                "operationId": "1a273e841276c3bf8c60006d8cc78928",
+                "responses": {
+                    "200": {
+                        "description": "Empty response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "HTTP Unauthorized Exception",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/admin/profile": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "description": "Get user profile endpoint",
+                "operationId": "42192e1567c9e2d9979a1fe3573a9081",
+                "responses": {
+                    "200": {
+                        "description": "Token response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {},
+                                        "email": {}
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "HTTP Unauthorized Exception",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "JWT": {
+                "type": "http",
+                "name": "JWT",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Admin",
+            "description": "Admin"
+        }
+    ]
+}

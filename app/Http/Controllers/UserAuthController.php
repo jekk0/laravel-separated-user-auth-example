@@ -7,32 +7,34 @@ use Illuminate\Http\Request;
 
 class UserAuthController
 {
+    private const GUARD = 'jwt-user';
+
     public function login(Request $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
 
-        $tokens = auth('jwt-user')->attemptOrFail($credentials);
+        $tokens = auth(self::GUARD)->attemptOrFail($credentials);
 
         return new JsonResponse($tokens->toArray());
     }
 
     public function refresh(Request $request): JsonResponse
     {
-        $tokens = auth('jwt-user')->refreshTokens($request->get('token'));
+        $tokens = auth(self::GUARD)->refreshTokens($request->get('token'));
 
         return new JsonResponse($tokens->toArray());
     }
 
     public function logout(): JsonResponse
     {
-        auth('jwt-user')->logout();
+        auth(self::GUARD)->logout();
 
         return new JsonResponse();
     }
 
     public function logoutFromAllDevices(): JsonResponse
     {
-        auth('jwt-user')->logoutFromAllDevices();
+        auth(self::GUARD)->logoutFromAllDevices();
 
         return new JsonResponse();
     }

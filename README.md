@@ -47,8 +47,19 @@ php artisan migrate
 php artisan db:seed
 ```
 
+**Generate OpenApi docs**
+
+```shell
+php artisan l5-swagger:generate
+```
+
 **Run application**
 
 ```shell
 php artisan serve
 ```
+
+**API Documentation**
+
+http://localhost:8000/api/documentation
+
