@@ -2,16 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Jekk0\JwtAuth\Contracts\CustomClaims;
 
-class User extends Authenticatable implements CustomClaims
+class Company extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasUlids;
 
     /**
      * The attributes that are mass assignable.
@@ -47,10 +43,10 @@ class User extends Authenticatable implements CustomClaims
         ];
     }
 
-    public function getJwtCustomClaims(): array
-    {
-        return [
-            'type' => 'user',
-        ];
-    }
+//    public function getJwtCustomClaims(): array
+//    {
+//        return [
+//            'type' => 'company',
+//        ];
+//    }
 }
