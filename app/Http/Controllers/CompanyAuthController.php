@@ -20,7 +20,7 @@ class CompanyAuthController
 
     public function refresh(Request $request): JsonResponse
     {
-        $tokens = auth(self::GUARD)->refreshTokens($request->get('token'));
+        $tokens = auth(self::GUARD)->refreshTokens((string)$request->get('token'));
 
         return new JsonResponse($tokens->toArray());
     }

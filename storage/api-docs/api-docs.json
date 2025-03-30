@@ -8,19 +8,29 @@
         "/api/auth/admin/login": {
             "post": {
                 "tags": [
-                    "Admin"
+                    "Admin Authentication"
                 ],
-                "description": "Admin create token endpoint",
+                "summary": "User login",
+                "description": "Authenticate user and return JWT tokens",
                 "operationId": "a52c9bec4607b01e5211340800643272",
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
                                 "properties": {
                                     "email": {
+                                        "type": "string",
+                                        "format": "email",
                                         "example": "admin@example.com"
                                     },
                                     "password": {
+                                        "type": "string",
+                                        "format": "password",
                                         "example": "password"
                                     }
                                 },
@@ -31,7 +41,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Token response",
+                        "description": "Token pair response",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -61,7 +71,7 @@
                         }
                     },
                     "401": {
-                        "description": "HTTP Unauthorized Exception",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -81,11 +91,13 @@
         "/api/auth/admin/refresh": {
             "post": {
                 "tags": [
-                    "Admin"
+                    "Admin Authentication"
                 ],
-                "description": "Admin refresh token endpoint",
+                "summary": "Refresh JWT token",
+                "description": "Refresh admin authentication token",
                 "operationId": "b60b7cf15f135296e3205ade56209413",
                 "requestBody": {
+                    "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
@@ -129,7 +141,7 @@
                         }
                     },
                     "401": {
-                        "description": "HTTP Unauthorized Exception",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -149,8 +161,9 @@
         "/api/auth/admin/logout": {
             "post": {
                 "tags": [
-                    "Admin"
+                    "Admin Authentication"
                 ],
+                "summary": "User logout",
                 "description": "Invalidate access/refresh token pair for current session",
                 "operationId": "36037d9b01d8a00e8d45c06f67295bb3",
                 "responses": {
@@ -165,7 +178,7 @@
                         }
                     },
                     "401": {
-                        "description": "HTTP Unauthorized Exception",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -190,8 +203,9 @@
         "/api/auth/admin/logout/all": {
             "post": {
                 "tags": [
-                    "Admin"
+                    "Admin Authentication"
                 ],
+                "summary": "Logout from all devices",
                 "description": "Invalidate access/refresh token pairs for all user sessions",
                 "operationId": "1a273e841276c3bf8c60006d8cc78928",
                 "responses": {
@@ -206,7 +220,7 @@
                         }
                     },
                     "401": {
-                        "description": "HTTP Unauthorized Exception",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -231,19 +245,27 @@
         "/api/auth/admin/profile": {
             "get": {
                 "tags": [
-                    "Admin"
+                    "Admin Authentication"
                 ],
-                "description": "Get user profile endpoint",
+                "summary": "Get user profile",
+                "description": "Returns authenticated user's profile information",
                 "operationId": "42192e1567c9e2d9979a1fe3573a9081",
                 "responses": {
                     "200": {
-                        "description": "Token response",
+                        "description": "User profile information",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "name": {},
-                                        "email": {}
+                                        "name": {
+                                            "type": "string",
+                                            "example": "John Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "user@example.com"
+                                        }
                                     },
                                     "type": "object"
                                 }
@@ -251,7 +273,7 @@
                         }
                     },
                     "401": {
-                        "description": "HTTP Unauthorized Exception",
+                        "description": "Unauthorized",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -287,8 +309,8 @@
     },
     "tags": [
         {
-            "name": "Admin",
-            "description": "Admin"
+            "name": "Admin Authentication",
+            "description": "Endpoints for admin authentication"
         }
     ]
 }
