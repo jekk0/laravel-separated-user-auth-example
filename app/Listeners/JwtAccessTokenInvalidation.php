@@ -9,7 +9,6 @@ use Jekk0\JwtAuth\Model\JwtRefreshToken;
 
 class JwtAccessTokenInvalidation
 {
-
     public function handle(JwtAccessTokenDecoded $event): void
     {
         Log::info("Guard $event->guard: Access token invalidation.");

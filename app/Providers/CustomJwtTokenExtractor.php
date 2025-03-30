@@ -11,7 +11,7 @@ class CustomJwtTokenExtractor extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(TokenExtractor::class, function () {
-            return new class implements TokenExtractor {
+            return new class () implements TokenExtractor {
                 public function __invoke(Request $request): ?string
                 {
                     return $request->bearerToken();

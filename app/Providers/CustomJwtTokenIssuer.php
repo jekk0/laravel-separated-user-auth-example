@@ -11,7 +11,7 @@ class CustomJwtTokenIssuer extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(TokenIssuer::class, function () {
-            return new class implements TokenIssuer {
+            return new class () implements TokenIssuer {
                 public function __invoke(Request $request): string
                 {
                     return 'CustomIssuer';

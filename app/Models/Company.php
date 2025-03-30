@@ -43,10 +43,10 @@ class Company extends Authenticatable
         ];
     }
 
-//    public function getJwtCustomClaims(): array
-//    {
-//        return [
-//            'type' => 'company',
-//        ];
-//    }
+    //    public function getJwtCustomClaims(): array
+    //    {
+    //        return [
+    //            'type' => 'company',
+    //        ];
+    //    }
 }

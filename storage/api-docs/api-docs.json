@@ -11,7 +11,7 @@
                     "Admin Authentication"
                 ],
                 "summary": "User login",
-                "description": "Authenticate user and return JWT tokens",
+                "description": "Authenticate admin user and return JWT tokens",
                 "operationId": "a52c9bec4607b01e5211340800643272",
                 "requestBody": {
                     "required": true,
@@ -94,7 +94,7 @@
                     "Admin Authentication"
                 ],
                 "summary": "Refresh JWT token",
-                "description": "Refresh admin authentication token",
+                "description": "Refresh admin user authentication token",
                 "operationId": "b60b7cf15f135296e3205ade56209413",
                 "requestBody": {
                     "required": true,
@@ -294,6 +294,586 @@
                     }
                 ]
             }
+        },
+        "/api/auth/company/login": {
+            "post": {
+                "tags": [
+                    "Company Authentication"
+                ],
+                "summary": "User login",
+                "description": "Authenticate company user and return JWT tokens",
+                "operationId": "f0d262b157a0075a92e084aca7f9115d",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "company@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token pair response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "refresh": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/company/refresh": {
+            "post": {
+                "tags": [
+                    "Company Authentication"
+                ],
+                "summary": "Refresh JWT token",
+                "description": "Refresh company user authentication token",
+                "operationId": "392cadbbe8972303872dd761b76d7be5",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "token": {}
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "refresh": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/company/logout": {
+            "post": {
+                "tags": [
+                    "Company Authentication"
+                ],
+                "summary": "User logout",
+                "description": "Invalidate access/refresh token pair for current session",
+                "operationId": "90f2761b61b401c5bc442d80880ba23a",
+                "responses": {
+                    "200": {
+                        "description": "Empty response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/company/logout/all": {
+            "post": {
+                "tags": [
+                    "Company Authentication"
+                ],
+                "summary": "Logout from all devices",
+                "description": "Invalidate access/refresh token pairs for all user sessions",
+                "operationId": "54da9ae718c0990c5e95af16c0a61900",
+                "responses": {
+                    "200": {
+                        "description": "Empty response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/company/profile": {
+            "get": {
+                "tags": [
+                    "Company Authentication"
+                ],
+                "summary": "Get user profile",
+                "description": "Returns authenticated user's profile information",
+                "operationId": "ec376210d25c351070e5bcf93f6186e0",
+                "responses": {
+                    "200": {
+                        "description": "User profile information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "John Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "user@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/user/login": {
+            "post": {
+                "tags": [
+                    "User Authentication"
+                ],
+                "summary": "User login",
+                "description": "Authenticate user and return JWT tokens",
+                "operationId": "f4303455a3fb0154bd62e744e406ba38",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token pair response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "refresh": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/user/refresh": {
+            "post": {
+                "tags": [
+                    "User Authentication"
+                ],
+                "summary": "Refresh JWT token",
+                "description": "Refresh user authentication token",
+                "operationId": "6c229207ea6e75a2068227ce99221cd8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "token": {}
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Token response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "access": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "refresh": {
+                                            "properties": {
+                                                "token": {},
+                                                "expiredAt": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/user/logout": {
+            "post": {
+                "tags": [
+                    "User Authentication"
+                ],
+                "summary": "User logout",
+                "description": "Invalidate access/refresh token pair for current session",
+                "operationId": "05826f6242298a10f44ee156701bed1a",
+                "responses": {
+                    "200": {
+                        "description": "Empty response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/user/logout/all": {
+            "post": {
+                "tags": [
+                    "User Authentication"
+                ],
+                "summary": "Logout from all devices",
+                "description": "Invalidate access/refresh token pairs for all user sessions",
+                "operationId": "59fb7ca40da5fad408e133093ee68a19",
+                "responses": {
+                    "200": {
+                        "description": "Empty response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {}
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
+        },
+        "/api/auth/user/profile": {
+            "get": {
+                "tags": [
+                    "User Authentication"
+                ],
+                "summary": "Get user profile",
+                "description": "Returns authenticated user's profile information",
+                "operationId": "42d6738579c102d21d5544f4c6a1b807",
+                "responses": {
+                    "200": {
+                        "description": "User profile information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "name": {
+                                            "type": "string",
+                                            "example": "John Doe"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "format": "email",
+                                            "example": "user@example.com"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "example": "Unauthenticated."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -310,7 +890,15 @@
     "tags": [
         {
             "name": "Admin Authentication",
-            "description": "Endpoints for admin authentication"
+            "description": "Endpoints for admin user authentication"
+        },
+        {
+            "name": "Company Authentication",
+            "description": "Endpoints for company user authentication"
+        },
+        {
+            "name": "User Authentication",
+            "description": "Endpoints for user authentication"
         }
     ]
 }

@@ -8,5 +8,4 @@ use OpenApi\Attributes as OA;
 #[OA\SecurityScheme(securityScheme: 'JWT', type: 'http', name: 'JWT', in: 'header', bearerFormat: 'JWT', scheme: 'bearer')]
 class Controller
 {
-
 }

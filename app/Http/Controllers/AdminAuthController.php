@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use OpenApi\Attributes as OA;
 
-#[OA\Tag(name: "Admin Authentication", description: "Endpoints for admin authentication")]
+#[OA\Tag(name: "Admin Authentication", description: "Endpoints for admin user authentication")]
 class AdminAuthController
 {
     private const GUARD = 'jwt-admin';
 
     #[OA\Post(
         path: "/api/auth/admin/login",
-        description: "Authenticate user and return JWT tokens",
+        description: "Authenticate admin user and return JWT tokens",
         summary: "User login",
         requestBody: new OA\RequestBody(
             required: true,
@@ -29,9 +29,10 @@ class AdminAuthController
         tags: ["Admin Authentication"],
         responses: [
             new OA\Response(
-                response: Response::HTTP_OK, description: 'Token pair response',
+                response: Response::HTTP_OK,
+                description: 'Token pair response',
                 content: new OA\JsonContent(
-                properties: [
+                    properties: [
                     new OA\Property('access', properties: [
                         new OA\Property('token'),
                         new OA\Property('expiredAt', type: 'int')
@@ -63,7 +64,7 @@ class AdminAuthController
 
     #[OA\Post(
         path: '/api/auth/admin/refresh',
-        description: 'Refresh admin authentication token',
+        description: 'Refresh admin user authentication token',
         summary: "Refresh JWT token",
         requestBody: new OA\RequestBody(
             required: true,
@@ -105,12 +106,19 @@ class AdminAuthController
         return new JsonResponse($tokens->toArray());
     }
 
-    #[OA\Post(path: '/api/auth/admin/logout', description: 'Invalidate access/refresh token pair for current session', summary: "User logout",
-        security: [['JWT' => []]], tags: ['Admin Authentication'], responses: [
+    #[OA\Post(
+        path: '/api/auth/admin/logout',
+        description: 'Invalidate access/refresh token pair for current session',
+        summary: "User logout",
+        security: [['JWT' => []]],
+        tags: ['Admin Authentication'],
+        responses: [
         new OA\Response(
-            response: Response::HTTP_OK, description: 'Empty response', content: new OA\JsonContent(
-            properties: []
-        )
+            response: Response::HTTP_OK,
+            description: 'Empty response',
+            content: new OA\JsonContent(
+                properties: []
+            )
         ),
         new OA\Response(
             response: Response::HTTP_UNAUTHORIZED,
@@ -119,7 +127,8 @@ class AdminAuthController
                 properties: [new OA\Property('message', example: 'Unauthenticated.')]
             )
         ),
-    ])]
+    ]
+    )]
     public function logout(): JsonResponse
     {
         auth(self::GUARD)->logout();
@@ -127,13 +136,19 @@ class AdminAuthController
         return new JsonResponse();
     }
 
-    #[OA\Post(path: '/api/auth/admin/logout/all', description: 'Invalidate access/refresh token pairs for all user sessions',
+    #[OA\Post(
+        path: '/api/auth/admin/logout/all',
+        description: 'Invalidate access/refresh token pairs for all user sessions',
         summary: "Logout from all devices",
-        security: [['JWT' => []]], tags: ['Admin Authentication'], responses: [
+        security: [['JWT' => []]],
+        tags: ['Admin Authentication'],
+        responses: [
         new OA\Response(
-            response: Response::HTTP_OK, description: 'Empty response', content: new OA\JsonContent(
-            properties: []
-        )
+            response: Response::HTTP_OK,
+            description: 'Empty response',
+            content: new OA\JsonContent(
+                properties: []
+            )
         ),
         new OA\Response(
             response: Response::HTTP_UNAUTHORIZED,
@@ -142,7 +157,8 @@ class AdminAuthController
                 properties: [new OA\Property('message', example: 'Unauthenticated.')]
             )
         ),
-    ])]
+    ]
+    )]
     public function logoutFromAllDevices(): JsonResponse
     {
         auth(self::GUARD)->logoutFromAllDevices();
@@ -150,9 +166,16 @@ class AdminAuthController
         return new JsonResponse();
     }
 
-    #[OA\Get(path: '/api/auth/admin/profile', description: 'Returns authenticated user\'s profile information', summary: "Get user profile", security: [['JWT' => []]], tags: ['Admin Authentication'], responses: [
+    #[OA\Get(
+        path: '/api/auth/admin/profile',
+        description: 'Returns authenticated user\'s profile information',
+        summary: "Get user profile",
+        security: [['JWT' => []]],
+        tags: ['Admin Authentication'],
+        responses: [
         new OA\Response(
-            response: Response::HTTP_OK, description: "User profile information",
+            response: Response::HTTP_OK,
+            description: "User profile information",
             content: new OA\JsonContent(
                 properties: [
                     new OA\Property(property: "name", type: "string", example: "John Doe"),
@@ -167,7 +190,8 @@ class AdminAuthController
                 properties: [new OA\Property('message', example: 'Unauthenticated.')]
             )
         ),
-    ])]
+    ]
+    )]
     public function profile(Request $request): JsonResponse
     {
         return new JsonResponse(['name' => $request->user()->name, 'email' => $request->user()->email]);
