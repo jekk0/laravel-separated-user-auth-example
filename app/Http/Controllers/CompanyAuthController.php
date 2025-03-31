@@ -2,15 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Jekk0\JwtAuth\Contracts\RequestGuard;
 use OpenApi\Attributes as OA;
 
 #[OA\Tag(name: "Company Authentication", description: "Endpoints for company user authentication")]
 class CompanyAuthController
 {
-    private const GUARD = 'jwt-company';
+    private const GUARD_NAME = 'jwt-company';
+
+    private readonly RequestGuard $guard;
+
+    public function __construct()
+    {
+        $this->guard = auth(self::GUARD_NAME);
+    }
 
     #[OA\Post(
         path: "/api/auth/company/login",
@@ -57,7 +66,7 @@ class CompanyAuthController
     {
         $credentials = $request->only('email', 'password');
 
-        $tokens = auth(self::GUARD)->attemptOrFail($credentials);
+        $tokens = $this->guard->attemptOrFail($credentials);
 
         return new JsonResponse($tokens->toArray());
     }
@@ -101,7 +110,7 @@ class CompanyAuthController
     )]
     public function refresh(Request $request): JsonResponse
     {
-        $tokens = auth(self::GUARD)->refreshTokens((string)$request->get('token'));
+        $tokens = $this->guard->refreshTokens((string)$request->get('token'));
 
         return new JsonResponse($tokens->toArray());
     }
@@ -131,7 +140,7 @@ class CompanyAuthController
     )]
     public function logout(): JsonResponse
     {
-        auth(self::GUARD)->logout();
+        $this->guard->logout();
 
         return new JsonResponse();
     }
@@ -161,7 +170,7 @@ class CompanyAuthController
     )]
     public function logoutFromAllDevices(): JsonResponse
     {
-        auth(self::GUARD)->logoutFromAllDevices();
+        $this->guard->logoutFromAllDevices();
 
         return new JsonResponse();
     }
@@ -194,6 +203,9 @@ class CompanyAuthController
     )]
     public function profile(Request $request): JsonResponse
     {
-        return new JsonResponse(['name' => $request->user()->name, 'email' => $request->user()->email]);
+        /** @var Company $user */
+        $user = $request->user();
+
+        return new JsonResponse(['name' => $user->name, 'email' => $user->email]);
     }
 }

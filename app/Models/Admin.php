@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Jekk0\JwtAuth\Contracts\CustomClaims;
 
+/**
+ * @property string $id
+ * @property string $email
+ * @property string $name
+ * @property string $password
+ */
 class Admin extends Authenticatable implements CustomClaims
 {
     use HasUuids;

@@ -5,6 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @property string $id
+ * @property string $email
+ * @property string $name
+ * @property string $password
+ */
 class Company extends Authenticatable
 {
     use HasUlids;

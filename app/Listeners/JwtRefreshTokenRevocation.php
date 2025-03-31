@@ -2,6 +2,9 @@
 
 namespace App\Listeners;
 
+use App\Models\Admin;
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Jekk0\JwtAuth\Model\JwtRefreshToken;
 
@@ -11,8 +14,11 @@ class JwtRefreshTokenRevocation
     {
         Log::info("Guard $event->guard: Refresh token revocation.");
 
+        /** @var Admin|Company|User $user */
+        $user = $event->user;
+
         // Get all user refresh tokens
-        $affectedRefreshTokens = JwtRefreshToken::where('sub', '=', (string)$event->user->id)->get();
+        $affectedRefreshTokens = JwtRefreshToken::where('sub', '=', (string)$user->id)->get();
 
         // If you use Access token invalidation then this step is not needed
         foreach ($affectedRefreshTokens as $refreshToken) {

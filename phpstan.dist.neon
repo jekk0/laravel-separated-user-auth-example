@@ -1,0 +1,20 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+    - vendor/nesbot/carbon/extension.neon
+parameters:
+    level: 8
+    paths:
+        - app/
+    checkBenevolentUnionTypes: true
+    editorUrl: '=>'
+    editorUrlTitle: '%%file%%:%%line%%'
+    tmpDir: ./var/phpstan
+    ignoreErrors:
+        -
+            message: '#^Property App\\Http\\Controllers\\AdminAuthController\:\:\$guard \(Jekk0\\JwtAuth\\Contracts\\RequestGuard\) does not accept Illuminate\\Contracts\\Auth\\StatefulGuard\.$#'
+
+        -
+            message: '#^Property App\\Http\\Controllers\\CompanyAuthController\:\:\$guard \(Jekk0\\JwtAuth\\Contracts\\RequestGuard\) does not accept Illuminate\\Contracts\\Auth\\StatefulGuard\.$#'
+
+        -
+            message: '#^Property App\\Http\\Controllers\\UserAuthController\:\:\$guard \(Jekk0\\JwtAuth\\Contracts\\RequestGuard\) does not accept Illuminate\\Contracts\\Auth\\StatefulGuard\.$#'

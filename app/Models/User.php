@@ -8,6 +8,12 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Jekk0\JwtAuth\Contracts\CustomClaims;
 
+/**
+ * @property int $id
+ * @property string $email
+ * @property string $name
+ * @property string $password
+ */
 class User extends Authenticatable implements CustomClaims
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
