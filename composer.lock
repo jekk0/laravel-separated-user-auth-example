@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e8f5f3b29619f04514ff7f8ff3b9c07",
+    "content-hash": "d32203f2ee9a9efa4669b55eefae9f60",
     "packages": [
         {
             "name": "brick/math",
@@ -1276,16 +1276,16 @@
         },
         {
             "name": "jekk0/jwt-auth",
-            "version": "0.0.5",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jekk0/jwt-auth.git",
-                "reference": "c8fc9af3d29ec87f3df25946d6c2d614607ec0e0"
+                "reference": "044e780c14c99bedf30f90fda9549dc03d9abbd2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jekk0/jwt-auth/zipball/c8fc9af3d29ec87f3df25946d6c2d614607ec0e0",
-                "reference": "c8fc9af3d29ec87f3df25946d6c2d614607ec0e0",
+                "url": "https://api.github.com/repos/jekk0/jwt-auth/zipball/044e780c14c99bedf30f90fda9549dc03d9abbd2",
+                "reference": "044e780c14c99bedf30f90fda9549dc03d9abbd2",
                 "shasum": ""
             },
             "require": {
@@ -1295,7 +1295,7 @@
                 "illuminate/contracts": "^10.0|^11.0|^12.0",
                 "illuminate/database": "^10.0|^11.0|^12.0",
                 "illuminate/support": "^10.0|^11.0|^12.0",
-                "php": "^8.0"
+                "php": "^8.1"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.65",
@@ -1343,9 +1343,9 @@
             ],
             "support": {
                 "issues": "https://github.com/jekk0/jwt-auth/issues",
-                "source": "https://github.com/jekk0/jwt-auth/tree/0.0.5"
+                "source": "https://github.com/jekk0/jwt-auth/tree/1.0.0"
             },
-            "time": "2025-03-13T19:21:37+00:00"
+            "time": "2025-03-31T15:39:07+00:00"
         },
         {
             "name": "laravel/framework",
