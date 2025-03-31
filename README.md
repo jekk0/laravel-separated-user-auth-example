@@ -15,7 +15,7 @@ It demonstrates a role-based authentication system where different user types (U
 **Clone the repository:**
 
 ```shell
-git clone https://github.com/jekk0/separated-user-auth-example.git
+git clone https://github.com/jekk0/laravel-separated-user-auth-example.git
 ```
 
 **Install dependencies:**

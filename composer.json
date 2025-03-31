@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "jekk0/laravel-separated-user-auth-example",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "It demonstrates a role-based authentication system where different user types (User, Admin, Company) are stored separately in the database. The implementation includes JWT-based authentication, token validation, and multi-session support",
+    "keywords": ["laravel", "framework", "jwt", "auth"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
