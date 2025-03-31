@@ -1,0 +1,48 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php: [8.2, 8.3, 8.4]
+    name: PHP ${{ matrix.php }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          ini-values: error_reporting=E_ALL
+          tools: composer:v2
+          coverage: xdebug
+
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
+      - name: Install dependencies
+        uses: php-actions/composer@v6
+
+      - name: Set up application for SQLite
+        run: |
+          touch database/database.sqlite
+
+      - name: Generate key
+        run: php artisan key:generate
+
+      - name: Run PHPStan analyse
+        run: vendor/bin/phpstan analyse
+
+      - name: Run PHPUnit tests
+        env:
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+          JWT_AUTH_PUBLIC_KEY: ${{ secrets.JWT_AUTH_PUBLIC_KEY }}
+          JWT_AUTH_PRIVATE_KEY: ${{ secrets.JWT_AUTH_PRIVATE_KEY }}
+        run: vendor/bin/phpunit
