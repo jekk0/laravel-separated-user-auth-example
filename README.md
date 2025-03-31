@@ -1,5 +1,7 @@
 # Laravel Separated User Auth(JWT) Example
 
+![Build Status](https://github.com/jekk0/laravel-separated-user-auth-example/actions/workflows/pipeline.yml/badge.svg?branch=main)
+
 ### This is an example implementation of Separated User Auth using the [JWT package](https://github.com/jekk0/jwt-auth).
 
 It demonstrates a role-based authentication system where different user types (User, Admin, Company) are stored separately in the database. The implementation includes JWT-based authentication, token validation, and multi-session support
